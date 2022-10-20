@@ -1,0 +1,62 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  namespace: serverless-demo
+  name: feedback-persistence
+spec:
+  selector:
+    app: feedback-persistence
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: feedback-persistence
+    spec:
+      containers:
+        - name: feedback-persistence
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/serverless-demo/feedback-persistence:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: kafka-bootstrap-servers
+              valueFrom:
+                secretKeyRef:
+                  key: kafka.bootstrap.servers
+                  name: kafka-config
+            - name: kafka-sasl-jaas-config
+              valueFrom:
+                secretKeyRef:
+                  key: sasl.jaas.config
+                  name: feedback-user
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  key: user
+                  name: mariadb-config
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: userPassword
+                  name: mariadb-config
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: host
+                  name: mariadb-config
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: database
+                  name: mariadb-config
+  strategy:
+    type: Rolling
+    rollingParams:
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+  triggers:
+    - type: ConfigChange
