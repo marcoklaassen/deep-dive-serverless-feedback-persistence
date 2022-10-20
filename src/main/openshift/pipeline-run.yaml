@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: feedback-form-pipeline-run-
+  generateName: feedback-persistence-pipeline-run-
   namespace: serverless-demo
 spec:
   params:
