@@ -23,6 +23,7 @@ public class FeedbackConsumer {
     @Incoming("feedback-topic-in")
     @Transactional
     public void consume(Integer rating) {
+        log.info("Feedback persistence got rating: {}", rating);
         em.persist(builder().rating(rating).build());
     }
 
