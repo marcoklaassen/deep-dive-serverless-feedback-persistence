@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: feedback-form-pipeline-run-
+  namespace: serverless-demo
+spec:
+  params:
+    - name: git-url
+      value: 'https://github.com/marcoklaassen/deep-dive-serverless-feedback-persistence'
+    - name: git-revision
+      value: main
+    - name: IMAGE
+      value: >-
+        image-registry.openshift-image-registry.svc:5000/serverless-demo/feedback-persistence
+    - name: APPVERSION
+      value: latest
+  pipelineRef:
+    name: quarkus-native-pipeline
+  workspaces:
+    - name: shared-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 500Mi
