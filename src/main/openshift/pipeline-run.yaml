@@ -2,16 +2,16 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   generateName: feedback-persistence-pipeline-run-
-  namespace: serverless-demo
+  namespace: deep-dive-quarkus
 spec:
   params:
     - name: git-url
       value: 'https://github.com/marcoklaassen/deep-dive-serverless-feedback-persistence'
     - name: git-revision
-      value: main
+      value: quarkus-deep-dive
     - name: IMAGE
       value: >-
-        image-registry.openshift-image-registry.svc:5000/serverless-demo/feedback-persistence
+        image-registry.openshift-image-registry.svc:5000/deep-dive-quarkus/feedback-persistence
     - name: APPVERSION
       value: latest
   pipelineRef:
