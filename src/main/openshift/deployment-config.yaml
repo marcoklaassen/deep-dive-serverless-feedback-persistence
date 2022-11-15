@@ -1,7 +1,7 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  namespace: deep-dive-quarkus
+  namespace: deep-dive-kafka
   name: feedback-persistence
 spec:
   selector:
@@ -15,7 +15,7 @@ spec:
       containers:
         - name: feedback-persistence
           image: >-
-            image-registry.openshift-image-registry.svc:5000/deep-dive-quarkus/feedback-persistence:latest
+            image-registry.openshift-image-registry.svc:5000/deep-dive-kafka/feedback-persistence:latest
           ports:
             - containerPort: 8080
               protocol: TCP
