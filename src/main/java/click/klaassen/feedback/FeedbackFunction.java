@@ -15,9 +15,8 @@ public class FeedbackFunction {
 
     @Transactional
     @Funq
-    public Integer feedback(Integer rating) {
-        log.info("Feedback persistence got rating: {}", rating);
-        em.persist(Feedback.builder().rating(rating).build());
-        return rating;
+    public void feedback(Feedback feedback) {
+        log.info("Feedback persistence got rating: {}", feedback.getRating());
+        em.persist(Feedback.builder().rating(feedback.getRating()).build());
     }
 }

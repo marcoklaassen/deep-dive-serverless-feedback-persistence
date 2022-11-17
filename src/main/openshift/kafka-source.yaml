@@ -3,6 +3,8 @@ kind: KafkaSource
 metadata:
   namespace: deep-dive-kafka
   name: kafka-source-feedback
+  labels:
+    kafkasources.sources.knative.dev/key-type: int
 spec:
   net:
     sasl:
@@ -35,3 +37,4 @@ spec:
       apiVersion: serving.knative.dev/v1
       kind: Service
       name: feedback-persistence
+    uri: /feedback
