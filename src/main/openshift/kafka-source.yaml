@@ -37,4 +37,3 @@ spec:
       apiVersion: serving.knative.dev/v1
       kind: Service
       name: feedback-persistence
-    uri: /feedback
