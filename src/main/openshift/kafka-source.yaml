@@ -20,11 +20,12 @@ spec:
           name: feedback-user
           key: password
     tls:
-      enable: true
+      enable: false
       caCert:
         secretKeyRef:
           name: deep-dive-kafka-cluster-ca-cert
           key: ca.crt
+  consumerGroup: feedback-persistence
   bootstrapServers:
     - deep-dive-kafka-kafka-bootstrap.deep-dive-kafka.svc.cluster.local:9092
   topics:
@@ -34,4 +35,3 @@ spec:
       apiVersion: serving.knative.dev/v1
       kind: Service
       name: feedback-persistence
-    uri: /feedback
